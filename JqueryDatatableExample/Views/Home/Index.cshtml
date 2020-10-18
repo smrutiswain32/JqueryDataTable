@@ -1,0 +1,99 @@
+﻿@model  JqueryDatatableExample.Models.EmployeeViewModel
+@{
+    ViewBag.Title = "Home Page";
+}
+
+
+@*<div class="jumbotron">
+        <h1>ASP.NET</h1>
+        <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
+        <p><a href="https://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
+    </div>
+
+    <div class="row">
+        <div class="col-md-4">
+            <h2>Getting started</h2>
+            <p>
+                ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
+                enables a clean separation of concerns and gives you full control over markup
+                for enjoyable, agile development.
+            </p>
+            <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
+        </div>
+        <div class="col-md-4">
+            <h2>Get more libraries</h2>
+            <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
+            <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
+        </div>
+        <div class="col-md-4">
+            <h2>Web Hosting</h2>
+            <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
+            <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
+        </div>
+    </div>*@
+
+
+
+@*</div>*@
+
+
+
+<div class="container-fluid">
+    <h4>Employee List</h4>
+    <div class="input-group" style="float:right">
+        <a class="btn btn-primary" href="@Url.Action("Email","Home")" style="margin-left:86%; margin-top:-5%">Email</a>&nbsp;
+        <a class="btn btn-primary" href="@Url.Action("AddEmployee","Home")" style="margin-left:86%;">Add</a>&nbsp;
+        <a class="btn btn-primary" id="btnAdd" style="margin-left:56%; margin-top:-9%;" onclick="AddEmployee()">Add Employee Modal</a>&nbsp;
+        <input type="text" class="form-control" id="tbl_txt_search" style="margin-left:26%;" placeholder="Search" />
+        <button class="btn btn-primary" id="searchButton" style="margin-top: -11%;margin-left:83%;" type="button">
+            Search
+
+        </button>
+    </div>
+
+
+    <div class="tbl">
+        <table class="table table-striped table-bordered" id="commontbl"></table>
+    </div>
+    <div class="row deptname">
+        <div class="col-lg-12" id="selectedDept">
+
+        </div>
+    </div>
+</div>
+@*<div>
+        @Html.Partial("AddEmployee", Model)
+    </div>*@
+<div id="myModal1" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Add Employee</h4>
+            </div>
+            <div class="modal-body" id="myModalBodyDiv1" style="margin-left:10%;">
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<link href="~/Content/Common.css" rel="stylesheet" />
+
+<script src="~/Scripts/Employee.js"></script>
+
+<script>
+    var AddEmployee = function () {
+        var url = "/Home/AddEmployeeModal"
+        $("#myModalBodyDiv1").load(url, function () {
+            $("#myModal1").modal({
+                backdrop: 'static',
+                keyboard: false
+            });
+            $("#myModal1").modal("show");
+        })
+    }
+
+</script>
+

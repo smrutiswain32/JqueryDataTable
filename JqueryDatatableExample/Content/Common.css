@@ -1,0 +1,26 @@
+﻿body {
+}
+
+.selectedRow {
+    background-color: violet !important;
+}
+
+.final-selected-dept{
+    display:inline-block;
+    padding:1%;
+    border:1px solid #ccc;
+    margin-right:1%;
+    margin-top:1%;
+}
+
+span :hover {
+    color: yellow;
+}
+
+.modal {
+    z-index: 20000000 !important;
+}
+
+ .error {
+    color: red !important;
+}

@@ -1,0 +1,98 @@
+﻿@model JqueryDatatableExample.Models.EmployeeViewModel
+
+
+<form id="myForm">
+    @*@HtmlHelper.UnobtrusiveJavaScriptEnabled = false;*@
+
+    <div class="row form-group">
+        @Html.LabelFor(x => x.EmployeeName)
+        @Html.TextBoxFor(x => x.EmployeeName, new { @id = "tbl_name", @placeholder = "Name", @class = "form-control", @autocomplete = "off" })
+        @Html.ValidationMessageFor(m => m.EmployeeName, "", new { @class = "text-danger " })
+    </div>
+
+    <div class="row form-group">
+        @Html.LabelFor(x => x.EmployeeAddress)
+        @Html.TextBoxFor(x => x.EmployeeAddress, new { @id = "tbl_address", @placeholder = "Address", @class = "form-control", @autocomplete = "off" })
+        @Html.ValidationMessageFor(m => m.EmployeeAddress, "", new { @class = "text-danger " })
+    </div>
+
+    <div class="row form-group">
+        @Html.LabelFor(x => x.DepartmentName)
+        @if (Model != null)
+        {
+            foreach (var item in Model.deptNames)
+            {
+                @*@Html.CheckBox(item.DepartName,new { @style="margin-left:2%;"}) @item.DepartName*@ 
+                <input type="checkbox" id="@item.Id" name="myParams" value="@item.DepartName" @(Convert.ToBoolean(item.IsSelected) == true ?   "checked='checked'" : string.Empty) /> @item.DepartName
+                @Html.ValidationMessageFor(m => item.DepartName, "", new { @class = "text-danger " })
+            }
+        }
+        &nbsp;
+    </div>
+
+    <div class="row form-group">
+        <button type="submit" class="btn btn-primary" id="btnsave">Save</button>
+        <a href="@Url.Action("Index","Home")" class="btn btn-primary">Cancel</a>
+    </div>
+
+</form>
+
+<script>
+    $(document).ready(function () {
+
+        $('#myForm').validate({
+            rules: {
+                'EmployeeName': {
+                    required: true,
+                },
+
+                'EmployeeAddress': {
+                    required: true,
+                },
+
+                'DeptName.DeptName': {
+                    required: true,
+                }
+            },
+            messages: {
+                'EmployeeName': "Please enter the Employee Name",
+                'EmployeeAddress': "Please enter the Employee Address",
+                'DeptName.DeptName': "Please select atleast one department"
+            },
+            highlight: function (element) {
+                $(element).parent().addClass('error')
+            },
+            unhighlight: function (element) {
+                $(element).parent().removeClass('error')
+            }
+
+        })
+
+
+
+        $("#btnsave").click(function () {
+
+            var form = $("#myForm");
+            debugger;
+            form.validate();
+            if (form.valid()) {
+                var myformdata = $("#myForm").serialize();
+                alert("success");
+                $.ajax({
+
+                    type: "POST",
+                    url: "/Home/SaveEmployee",
+                    data: myformdata,
+                    success: function () {
+                        $("#myModal1").modal("hide");
+                        location.href = "/Home/Index"
+
+                    }
+                })
+            }
+            else {
+                return false;
+            }
+        })
+    });
+</script>
