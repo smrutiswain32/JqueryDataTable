@@ -38,7 +38,7 @@
                     <input type="checkbox" id="@item.Id" name="myParams" value="@item.DepartName" @(Convert.ToBoolean(item.IsSelected) == true ? "checked='checked'" : string.Empty) /> @item.DepartName
                 }
             }
-            &nbsp;
+           
         </div>
         <div class="row form-group">
             @Html.LabelFor(x => x.Attachment)
